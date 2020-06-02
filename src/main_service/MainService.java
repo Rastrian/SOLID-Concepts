@@ -38,8 +38,8 @@ public class MainService implements Runnable{
 		if (output == 1) {
             inUse();
             System.out.println("Bem vindo, ao menu de Cliente.");
-            MenuCliente menuAlunos = new MenuCliente();
-            t = new Thread(menuAlunos);
+            MenuCliente menuCliente = new MenuCliente();
+            t = new Thread(menuCliente);
             t.start();
             try {
                 t.join();
@@ -51,8 +51,8 @@ public class MainService implements Runnable{
 		if (output == 2) {
             inUse();
             System.out.println("Bem vindo, ao menu de Administrador.");
-            MenuAdministrador menuAlunos = new MenuAdministrador();
-            t = new Thread(menuAlunos);
+            MenuAdministrador menuCliente = new MenuAdministrador();
+            t = new Thread(menuCliente);
             t.start();
             try {
                 t.join();

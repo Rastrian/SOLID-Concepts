@@ -1,5 +1,11 @@
 package decorator;
 
-public class Pedido {
-	
+public abstract class Pedido {
+	protected String pedido;
+
+    protected Pedido(){
+        pedido = "";
+    }
+    
+    abstract public double getPreco(int tipo);
 }

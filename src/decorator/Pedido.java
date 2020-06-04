@@ -1,5 +1,5 @@
-package profiles;
+package decorator;
 
 public class Pedido {
-
+	
 }

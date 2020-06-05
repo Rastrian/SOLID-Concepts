@@ -15,7 +15,7 @@ public class PedidosDao implements PedidosDaoInterface<Pedido, Integer>{
     	lista = new ArrayList<Pedido>();
     }
     
-    public static PedidosDao getInstance(String value) {
+    public static PedidosDao getInstance() {
         if (instance == null) {
             instance = new PedidosDao();
         }

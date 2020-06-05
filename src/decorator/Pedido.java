@@ -1,11 +1,6 @@
 package decorator;
 
-public abstract class Pedido {
-	protected String pedido;
-
-    protected Pedido(){
-        pedido = "";
-    }
-    
-    abstract public double getPreco(int tipo);
+public interface Pedido {
+	public String getDesc();
+	public double getPreco();
 }

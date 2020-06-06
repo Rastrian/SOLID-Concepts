@@ -1,7 +1,6 @@
 package fila;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import decorator.Pedido;
 
@@ -39,11 +38,6 @@ public class PedidosFila{
 	public void remove(Pedido p) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public List<Pedido> getAll() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public ArrayList<Pedido> getFila(){

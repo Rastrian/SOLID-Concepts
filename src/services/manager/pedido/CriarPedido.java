@@ -53,35 +53,34 @@ public class CriarPedido implements Runnable{
         pedido = selecionaCarne(pedido, output);
         
         //Extras
-        System.out.println("Extras: \n\n0 → Carne extra.\n1 → Creme Alho.\n2 → Chilli \n3 → Croutons"+
-                           "\n5 → Shitake \n5 → Tofu \n\nSelecione a opções de extras ou 10 para sair: ");
-        output = null;
-        while(output == null || (output != 0 && output != 1 && output != 2 && output != 3 && output != 4 && output != 5 && output != 10)) {
+        output = null;        
+        while(output == null || output != 10) {
+        	System.out.println("Extras: \n\n0 → Carne extra.\n1 → Creme Alho.\n2 → Chilli \n3 → Croutons"+
+                    "\n5 → Shitake \n5 → Tofu \n\nSelecione a opção de extras ou 10 para sair: ");
         	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             try {
                 output = Integer.parseInt(br.readLine());
+                if(output != 10) {
+                	pedido = selecionaExtra(pedido, output);
+                }
             } catch (NumberFormatException | IOException e ) {
                 System.out.println("Insira um formato valido");
             }
-        } 
-        if(output != 10) {
-        	pedido = selecionaExtra(pedido, output);
         }
         
         //Refrigerante
-        System.out.println("Extras: \n\n0 → Carne extra.\n1 → Creme Alho.\n2 → Chilli \n3 → Croutons"+
-                "\n4 → Shitake \n5 → Tofu \n\nSelecione a opções de extras ou 10 para sair: ");
 		output = null;
-		while(output == null || (output != 0 && output != 1 && output != 2 && output != 3 && output != 4 && output != 5 && output != 10)) {
+		while(output == null || output != 10) {
+			System.out.println("Bebida: \n\n0 → Refrigerante.\n1 → O-Cha(Verde).\n2 → KO-Cha(Preto) \n\nSelecione a opção de extras ou 10 para sair: ");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		 try {
-		     output = Integer.parseInt(br.readLine());
-		 } catch (NumberFormatException | IOException e ) {
-		     System.out.println("Insira um formato valido");
-		 }
-		} 
-		if(output != 10) {
-			pedido = selecionaExtra(pedido, output);
+			try {
+				output = Integer.parseInt(br.readLine());
+	            if(output != 10) {
+	            	pedido = selecionaBebida(pedido, output);
+	            }
+			 } catch (NumberFormatException | IOException e ) {
+			    System.out.println("Insira um formato valido");
+			 }
 		}
 		
 		if(fila.isEmpty()) {
@@ -92,8 +91,8 @@ public class CriarPedido implements Runnable{
 		}
 		
 		repository.add(pedido);
-		
-		System.out.println(repository.get(1));
+		System.out.println("\nInformações sobre o curso:\nID: " + pedido.getId() + "\nDescricao: " + pedido.getDesc()+ "\nValor: R$" + pedido.getPreco());
+        shutdown();
 	}
 	
 	public Pedido selecionaCarne(Pedido pedido, int carne) {
@@ -104,6 +103,19 @@ public class CriarPedido implements Runnable{
 			return new Porco(pedido);
 		case 2:
 			return new Boi(pedido);
+		default:
+			return null;			
+		}
+	}
+	
+	public Pedido selecionaBebida(Pedido pedido, int bebida) {
+		switch (bebida) {
+		case 0:
+			return new Refrigerante(pedido);
+		case 1:
+			return new OCha(pedido);
+		case 2:
+			return new KOCha(pedido);
 		default:
 			return null;			
 		}

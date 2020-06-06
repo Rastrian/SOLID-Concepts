@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import main_service.MainService;
+import services.manager.pedido.CriarPedido;
 
 public class MenuCliente extends MainService{
 	private volatile boolean closeThread;
@@ -31,12 +32,23 @@ public class MenuCliente extends MainService{
                 }
             }
         }
-        
+        Thread t = null;
         if (output == 0) {
             shutdown();
             return;
         }
         if (output != null){
+            inUse();
+        }        
+        if(output == 1) {
+        	CriarPedido criarPedido = new CriarPedido();
+        	t = new Thread(criarPedido);
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             inUse();
         }
 	}

@@ -1,17 +1,26 @@
 package decorator;
 
 public class PedidoMedio implements Pedido{
+	int id;
 
 	@Override
 	public String getDesc() {
-		// TODO Auto-generated method stub
 		return "Ramen Medio";
 	}
 
 	@Override
 	public double getPreco() {
-		// TODO Auto-generated method stub
 		return 12.90;
+	}
+	
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

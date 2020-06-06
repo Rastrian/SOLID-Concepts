@@ -18,5 +18,15 @@ public class Shitake extends PedidoDecorator{
 		// TODO Auto-generated method stub
 		return decoratedPedido.getPreco() + 6.9;
 	}
+	
+	@Override
+	public int getId() {
+		return decoratedPedido.getId();
+	}
+
+	@Override
+	public void setId(int id) {
+		decoratedPedido.setId(id);
+	}
 
 }

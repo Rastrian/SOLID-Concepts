@@ -19,4 +19,13 @@ public class CremeAlho extends PedidoDecorator{
 		return decoratedPedido.getPreco() + 1.5;
 	}
 
+	@Override
+	public int getId() {
+		return decoratedPedido.getId();
+	}
+
+	@Override
+	public void setId(int id) {
+		decoratedPedido.setId(id);
+	}
 }

@@ -18,5 +18,15 @@ public class CarneExtra extends PedidoDecorator{
 		// TODO Auto-generated method stub
 		return decoratedPedido.getPreco() + 4;
 	}
+	
+	@Override
+	public int getId() {
+		return decoratedPedido.getId();
+	}
+
+	@Override
+	public void setId(int id) {
+		decoratedPedido.setId(id);
+	}
 
 }

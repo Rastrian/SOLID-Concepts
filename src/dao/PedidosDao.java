@@ -6,32 +6,36 @@ import java.util.List;
 import decorator.Pedido;
 
 public class PedidosDao implements PedidosDaoInterface<Pedido, Integer>{
-	private static PedidosDao instance;
+	private static PedidosDao instance = null;
+    private static ArrayList<Pedido> fila = null;
     public String value;
-    private ArrayList<Pedido> lista;
     
     //Singlelton
     private PedidosDao() {
-    	lista = new ArrayList<Pedido>();
+    	fila = new ArrayList<Pedido>();
     }
     
     public static PedidosDao getInstance() {
         if (instance == null) {
             instance = new PedidosDao();
+            fila = new ArrayList<Pedido>();
         }
         return instance;
     }
 
 	@Override
 	public Pedido get(Integer id) {
-		// TODO Auto-generated method stub
+		for (Pedido usu : fila) {
+			if (usu.getId() == id) {
+				return usu;
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public boolean add(Pedido p) {
-		// TODO Auto-generated method stub
-		return false;
+	public void add(Pedido p) {
+		fila.add(p);
 	}
 
 	@Override
@@ -44,5 +48,9 @@ public class PedidosDao implements PedidosDaoInterface<Pedido, Integer>{
 	public List<Pedido> getAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public ArrayList<Pedido> getFila(){
+		return fila;
 	}
 }

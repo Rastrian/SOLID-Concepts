@@ -1,27 +1,29 @@
-package fila;
+package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import decorator.Pedido;
 
-public class PedidosFila{
-	private static PedidosFila instance = null;
+public class PedidosDao implements Dao<Pedido, Integer>{
+	private static PedidosDao instance = null;
     private static ArrayList<Pedido> fila = null;
     public String value;
     
     //Singlelton
-    private PedidosFila() {
+    private PedidosDao() {
     	fila = new ArrayList<Pedido>();
     }
     
-    public static PedidosFila getInstance() {
+    public static PedidosDao getInstance() {
         if (instance == null) {
-            instance = new PedidosFila();
+            instance = new PedidosDao();
             fila = new ArrayList<Pedido>();
         }
         return instance;
     }
-
+    
+    @Override
 	public Pedido get(Integer id) {
 		for (Pedido usu : fila) {
 			if (usu.getId() == id) {
@@ -31,16 +33,26 @@ public class PedidosFila{
 		return null;
 	}
 
+    @Override
 	public void add(Pedido p) {
 		fila.add(p);
 	}
 
+    @Override
 	public void remove(Pedido p) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public ArrayList<Pedido> getFila(){
-		return fila;
+
+	@Override
+	public void update(Pedido p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Pedido> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import dao.PedidosDao;
 import decorator.*;
-import fila.PedidosFila;
 
 public class CriarPedido implements Runnable{
 	private volatile boolean closeThread;
 	
-	private static PedidosFila repository;
+	private static PedidosDao repository;
 	private static ArrayList<Pedido> fila;
 	
 	private Pedido pedido;
@@ -19,8 +19,8 @@ public class CriarPedido implements Runnable{
 	@Override
 	public void run() {
 		while (!closeThread) {
-            repository = PedidosFila.getInstance();
-            fila = repository.getFila();
+            repository = PedidosDao.getInstance();
+            fila = repository.getAll();
             this.start();
         }		
 	}

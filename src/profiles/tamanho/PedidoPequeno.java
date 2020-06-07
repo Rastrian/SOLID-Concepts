@@ -4,6 +4,7 @@ import profiles.Pedido;
 
 public class PedidoPequeno implements Pedido{
 	int id;
+	int state;
 	
 	@Override
 	public String getDesc() {
@@ -24,6 +25,4 @@ public class PedidoPequeno implements Pedido{
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	
 }

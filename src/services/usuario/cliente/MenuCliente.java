@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import services.MainService;
 import services.manager.pedido.CriarPedido;
+import services.utils.UsuarioUtils;
 
 public class MenuCliente extends MainService{
 	private volatile boolean closeThread;
@@ -14,6 +15,7 @@ public class MenuCliente extends MainService{
 	@Override
 	public void run() {
 		while (!closeThread) {
+            UsuarioUtils.getInstance();
             this.start();
          }
 	}

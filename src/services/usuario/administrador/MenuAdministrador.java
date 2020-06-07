@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import services.MainService;
+import services.utils.UsuarioUtils;
 
 public class MenuAdministrador extends MainService{
 	private volatile boolean closeThread;
@@ -18,6 +19,8 @@ public class MenuAdministrador extends MainService{
 	}
 	
 	public void start() {
+        UsuarioUtils.setUserId(null);
+
 		System.out.println("\nOpções:\n\n0 → Sair.\n1 → Liberar pedido.\n2 → Acessar balanço."
                 		 + "\n\nInsira a opção desejada:");
         Integer output = null;

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import main_service.MainService;
 import services.manager.pedido.CriarPedido;
+import services.manager.pedido.RetirarPedido;
 
 public class MenuCliente extends MainService{
 	private volatile boolean closeThread;
@@ -37,10 +38,24 @@ public class MenuCliente extends MainService{
             shutdown();
             return;
         }
+        
         if (output != null){
             inUse();
-        }        
+        } 
+        
         if(output == 1) {
+        	CriarPedido criarPedido = new CriarPedido();
+        	t = new Thread(criarPedido);
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            inUse();
+        }
+        
+        if(output == 2) {
         	CriarPedido criarPedido = new CriarPedido();
         	t = new Thread(criarPedido);
             t.start();

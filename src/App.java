@@ -1,9 +1,8 @@
-import main_service.MainService;
+import services.MainService;
 
 public class App {
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		try {
             System.out.println("→ Iniciando sistema.");
             MainService rc = new MainService();

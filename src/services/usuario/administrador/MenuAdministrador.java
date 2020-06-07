@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import main_service.MainService;
+import services.MainService;
 
 public class MenuAdministrador extends MainService{
 	private volatile boolean closeThread;

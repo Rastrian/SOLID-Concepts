@@ -6,7 +6,27 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import dao.PedidosDao;
-import decorator.*;
+
+import profiles.Pedido;
+
+import profiles.bebidas.KOCha;
+import profiles.bebidas.OCha;
+import profiles.bebidas.Refrigerante;
+
+import profiles.carnes.Boi;
+import profiles.carnes.Porco;
+import profiles.carnes.Vegano;
+
+import profiles.extras.Chilli;
+import profiles.extras.CarneExtra;
+import profiles.extras.CremeAlho;
+import profiles.extras.Croutons;
+import profiles.extras.Shitake;
+import profiles.extras.Tofu;
+
+import profiles.tamanho.PedidoGrande;
+import profiles.tamanho.PedidoMedio;
+import profiles.tamanho.PedidoPequeno;
 
 public class CriarPedido implements Runnable{
 	private volatile boolean closeThread;

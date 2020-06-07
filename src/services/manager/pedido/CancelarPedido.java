@@ -6,20 +6,22 @@ import java.io.InputStreamReader;
 
 import dao.PedidosDao;
 import profiles.Pedido;
+import services.utils.UsuarioUtils;
 
-public class NegarPedido implements Runnable{
+public class CancelarPedido implements Runnable {
 	private volatile boolean closeThread;
     
     private static PedidosDao repository;
-	
+    private static UsuarioUtils utils;
+    private static Integer userId;
 	
 	@Override
 	public void run() {
 		while (!closeThread) {
             try {
-				repository = PedidosDao.getInstance();
+                repository = PedidosDao.getInstance();
+                utils = UsuarioUtils.getInstance();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             this.start();
@@ -47,14 +49,26 @@ public class NegarPedido implements Runnable{
                 System.out.println("Insira um formato valido");
             }
         }
+
+        userId = utils.getUserId();
         Pedido pedido = repository.get(output); 
-        if(pedido != null && pedido.getState() == 0) {
-        	pedido.setState(-1);
+
+        if (userId != null){
+            boolean exists = utils.getPedidos().contains(pedido);
+            if (!exists){
+                System.out.println("Este pedido não existe");
+                shutdown();
+                return;
+            }
+        }
+
+        if (pedido != null && pedido.getState() == 0) {
+            repository.remove(pedido);
+            pedido.setState(-1);
+            repository.add(pedido);
         }else {
         	System.out.println("Apenas é possível negar pedido em análise");
         }
-        repository.update(pedido);
-        System.out.println(pedido.getState());
         shutdown();        
 	}
 	

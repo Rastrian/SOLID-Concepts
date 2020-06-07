@@ -28,7 +28,6 @@ public class PedidoPequeno implements Pedido{
 	
 	@Override
 	public int getState() {
-		// TODO Auto-generated method stub
 		return state;
 	}
 

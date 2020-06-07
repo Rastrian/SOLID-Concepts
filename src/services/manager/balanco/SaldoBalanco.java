@@ -1,20 +1,19 @@
-package services.manager.pedido;
+package services.manager.balanco;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import dao.PedidosDao;
 import profiles.Pedido;
-import services.utils.PedidosUtils;
 import services.utils.UsuarioUtils;
 
-public class ListarPedidos implements Runnable{
+public class SaldoBalanco implements Runnable {
 	private volatile boolean closeThread;
 
     private Integer userId;
+    private Double balanco;
 
     private UsuarioUtils utils;
-    private PedidosUtils utilsPedido;
     private static PedidosDao repository;
 	private static ArrayList<Pedido> pedidos;
 
@@ -24,7 +23,6 @@ public class ListarPedidos implements Runnable{
             try {
             	utils = UsuarioUtils.getInstance();
                 repository = PedidosDao.getInstance();
-                utilsPedido = PedidosUtils.getInstance();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -35,25 +33,18 @@ public class ListarPedidos implements Runnable{
     private void start() {
         userId = utils.getUserId();
         if (userId == null){
+            balanco = 0.00;
             pedidos = repository.getAll();
             pedidos.forEach(p -> {
-                System.out.println("ID: "+ p.getId() +
-                "- Descrição: " + p.getDesc() +
-                "- Preço: "+ p.getPreco() +
-                "- "+ utilsPedido.getPedidoState(p.getState()));
+                if (p.getState() == 2 || p.getState() == 3){
+                    balanco += p.getPreco();
+                }
             });
-            shutdown();
-            return;
+            System.out.println("O seu balanço é de "+balanco+" R$.");
         }
-        pedidos = utils.getPedidos();
-        pedidos.forEach(p -> {
-            System.out.println("ID: "+ p.getId() +
-            "- Descrição: " + p.getDesc() +
-            "- Preço: "+ p.getPreco() +
-            "- "+ utilsPedido.getPedidoState(p.getState()));
-        });
         shutdown();
     }
+
     public void shutdown() {
         closeThread = true;
     }

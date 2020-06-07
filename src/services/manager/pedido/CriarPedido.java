@@ -28,16 +28,14 @@ public class CriarPedido implements Runnable{
 				utilsUsuario = UsuarioUtils.getInstance();
 				repository = PedidosDao.getInstance();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			utils = new PedidosUtils();
+			utils = PedidosUtils.getInstance();
             fila = repository.getAll();
             this.start();
         }		
 	}
 	
-	@SuppressWarnings("null")
 	public void start() {
 		Integer output = null;
         System.out.println("Opções de tamanho: \n\n0 → Pequeno.\n1 → Medio.\n2 → Grande \n\nSelecione o tamanho do Ramen: ");
@@ -66,7 +64,7 @@ public class CriarPedido implements Runnable{
         output = null;        
         while(output == null || output != 10) {
         	System.out.println("Extras: \n\n0 → Carne extra.\n1 → Creme Alho.\n2 → Chilli \n3 → Croutons"+
-                    "\n5 → Shitake \n5 → Tofu \n\nSelecione a opção de extras ou 10 para sair: ");
+                    "\n4 → Shitake \n5 → Tofu \n\nSelecione a opção de extras ou INSIRA 10 PARA CONTINUAR: ");
         	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             try {
                 output = Integer.parseInt(br.readLine());
@@ -80,7 +78,7 @@ public class CriarPedido implements Runnable{
         
 		output = null;
 		while(output == null || output != 10) {
-			System.out.println("Bebida: \n\n0 → Refrigerante.\n1 → O-Cha(Verde).\n2 → KO-Cha(Preto) \n\nSelecione a opção de extras ou 10 para sair: ");
+			System.out.println("Bebida: \n\n0 → Refrigerante.\n1 → O-Cha(Verde).\n2 → KO-Cha(Preto) \n\nSelecione a opção de extras ou INSIRA 10 PARA CONTINUAR: ");
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				output = Integer.parseInt(br.readLine());

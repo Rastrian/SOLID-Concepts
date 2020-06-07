@@ -19,7 +19,6 @@ public class FinalizarPedido implements Runnable{
             try {
 				repository = PedidosDao.getInstance();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             this.start();
@@ -49,12 +48,12 @@ public class FinalizarPedido implements Runnable{
         }
         Pedido pedido = repository.get(output); 
         if(pedido != null && pedido.getState() == 1) {
-        	pedido.setState(1);
+            repository.remove(pedido);
+            pedido.setState(2);
+            repository.add(pedido);
         }else {
         	System.out.println("Apenas é possível finalizar um pedido PREPARANDO");
         }
-        repository.update(pedido);
-        System.out.println(pedido.getState());
         shutdown();        
 	}
 	

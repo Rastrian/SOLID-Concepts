@@ -6,20 +6,21 @@ import java.io.InputStreamReader;
 
 import dao.PedidosDao;
 import profiles.Pedido;
+import services.utils.UsuarioUtils;
 
 public class RetirarPedido implements Runnable{
 	private volatile boolean closeThread;
     
     private static PedidosDao repository;
-	
+	private static UsuarioUtils utils;
 	
 	@Override
 	public void run() {
 		while (!closeThread) {
             try {
-				repository = PedidosDao.getInstance();
+                repository = PedidosDao.getInstance();
+                utils = UsuarioUtils.getInstance();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             this.start();
@@ -48,13 +49,21 @@ public class RetirarPedido implements Runnable{
             }
         }
         Pedido pedido = repository.get(output); 
+
+        boolean exists = utils.getPedidos().contains(pedido);
+        if (!exists){
+            System.out.println("Este pedido não existe");
+            shutdown();
+            return;
+        }
+
         if(pedido != null && pedido.getState() == 2) {
-        	pedido.setState(3);
+            repository.remove(pedido);
+            pedido.setState(3);
+            repository.add(pedido);
         }else {
         	System.out.println("Apenas é possível retirar pedido PRONTO");
         }
-        repository.update(pedido);
-        System.out.println(pedido.getState());
         shutdown();        
 	}
 	

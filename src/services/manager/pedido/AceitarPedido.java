@@ -19,7 +19,6 @@ public class AceitarPedido implements Runnable{
             try {
 				repository = PedidosDao.getInstance();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             this.start();
@@ -49,11 +48,12 @@ public class AceitarPedido implements Runnable{
         }
         Pedido pedido = repository.get(output); 
         if(pedido != null && pedido.getState() == 0) {
-        	pedido.setState(1);
+            repository.remove(pedido);
+            pedido.setState(1);
+            repository.add(pedido);
         }else {
         	System.out.println("Apenas é possível aceitar pedido em análise");
         }
-        repository.update(pedido);
         System.out.println(pedido.getState());
         shutdown();        
 	}

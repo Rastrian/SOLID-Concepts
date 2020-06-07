@@ -26,6 +26,17 @@ import profiles.tamanho.PedidoMedio;
 import profiles.tamanho.PedidoPequeno;
 
 public class PedidosUtils {
+    private static PedidosUtils instance = null;
+
+    private PedidosUtils() {}
+    
+    public static PedidosUtils getInstance() {
+        if (instance == null) {
+            instance = new PedidosUtils();
+        }
+        return instance;
+    }
+
     public Pedido selecionaCarne(Pedido pedido, int carne) {
 		switch (carne) {
 		case 0:
@@ -84,10 +95,10 @@ public class PedidosUtils {
 		}
 	}
 
-	public String getPedidoState(int id){
+	public String getPedidoState(Integer id){
 		ArrayList<EstadoPedidos> states = new ArrayList<EstadoPedidos>(EnumSet.allOf(EstadoPedidos.class));
 		for (EstadoPedidos state : states){
-			if (state.getValue().equals(id)){
+			if (state.getValue() == id){
 				return state.getEstado(id);
 			}
 		}

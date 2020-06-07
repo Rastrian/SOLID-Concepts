@@ -55,10 +55,8 @@ public class PedidosDao implements Dao<Pedido, Integer> {
 
 	@Override
 	public void update(Pedido Pedido) {
-		int index = fila.indexOf(Pedido);
-		if (index != -1) {
-			fila.set(index, Pedido);
-		}
+		remove(Pedido);
+		add(Pedido);
 		saveToFile();
 	}
 

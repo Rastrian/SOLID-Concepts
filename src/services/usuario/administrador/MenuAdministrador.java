@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import services.MainService;
+import services.manager.balanco.SaldoBalanco;
 import services.manager.pedido.AceitarPedido;
-import services.manager.pedido.CriarPedido;
 import services.manager.pedido.FinalizarPedido;
-import services.manager.pedido.NegarPedido;
+import services.manager.pedido.CancelarPedido;
 import services.utils.UsuarioUtils;
 
 public class MenuAdministrador extends MainService{
@@ -75,7 +75,7 @@ public class MenuAdministrador extends MainService{
         }
         
         if(output == 3) {
-        	NegarPedido negarPedido = new NegarPedido();
+        	CancelarPedido negarPedido = new CancelarPedido();
         	t = new Thread(negarPedido);
             t.start();
             try {
@@ -87,8 +87,8 @@ public class MenuAdministrador extends MainService{
         }
         
         if(output == 4) {
-        	CriarPedido criarPedido = new CriarPedido();
-        	t = new Thread(criarPedido);
+        	SaldoBalanco saldoBalanco = new SaldoBalanco();
+        	t = new Thread(saldoBalanco);
             t.start();
             try {
                 t.join();

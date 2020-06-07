@@ -4,6 +4,7 @@ import profiles.Pedido;
 
 public class PedidoPequeno implements Pedido{
 	int id;
+	int state;
 	
 	@Override
 	public String getDesc() {
@@ -24,6 +25,15 @@ public class PedidoPequeno implements Pedido{
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	
+	@Override
+	public int getState() {
+		// TODO Auto-generated method stub
+		return state;
+	}
+
+	@Override
+	public void setState(int id) {
+		this.state = id;		
+	}
 }

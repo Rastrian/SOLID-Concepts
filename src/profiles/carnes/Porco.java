@@ -28,5 +28,15 @@ public class Porco extends PedidoDecorator{
 	public void setId(int id) {
 		decoratedPedido.setId(id);
 	}
+	
+	@Override
+	public int getState() {
+		return decoratedPedido.getState();
+	}
+
+	@Override
+	public void setState(int id) {
+		decoratedPedido.setState(id);		
+	}
 
 }

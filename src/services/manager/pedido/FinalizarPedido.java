@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import dao.PedidosDao;
 import profiles.Pedido;
 
-public class RetirarPedido implements Runnable{
+public class FinalizarPedido implements Runnable{
 	private volatile boolean closeThread;
     
     private static PedidosDao repository;
@@ -48,10 +48,10 @@ public class RetirarPedido implements Runnable{
             }
         }
         Pedido pedido = repository.get(output); 
-        if(pedido != null && pedido.getState() == 2) {
-        	pedido.setState(3);
+        if(pedido != null && pedido.getState() == 1) {
+        	pedido.setState(1);
         }else {
-        	System.out.println("Apenas é possível retirar pedido PRONTO");
+        	System.out.println("Apenas é possível finalizar um pedido PREPARANDO");
         }
         repository.update(pedido);
         System.out.println(pedido.getState());
@@ -61,4 +61,5 @@ public class RetirarPedido implements Runnable{
 	public void shutdown() {
         closeThread = true;
     }
+
 }

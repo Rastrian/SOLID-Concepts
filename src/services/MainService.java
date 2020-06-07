@@ -21,7 +21,7 @@ public class MainService implements Runnable{
 	}
 
 	private void start() {
-		System.out.println("\nOpções:\n\n0 → Sair\n1 → Entrar como Cliente\n2 → Entrar como Administrador\n\nInsira a opção desejada:");
+		System.out.println("\nOpções:\n\n0 → Sair\n1 → Listar opcoes de Cliente\n2 → Listar opcoes de Administrador\n\nInsira a opção desejada:");
 		Integer output = null;
 		while (output == null) {
             if (!inUse) {
@@ -50,8 +50,8 @@ public class MainService implements Runnable{
 		if (output == 2) {
             inUse();
             System.out.println("Bem vindo, ao menu de Administrador.");
-            MenuAdministrador menuCliente = new MenuAdministrador();
-            t = new Thread(menuCliente);
+            MenuAdministrador menuAdm = new MenuAdministrador();
+            t = new Thread(menuAdm);
             t.start();
             try {
                 t.join();
@@ -63,7 +63,11 @@ public class MainService implements Runnable{
 	}
 
 	private void InitDAO() {
-        PedidosDao.getInstance();
+        try {
+			PedidosDao.getInstance();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void shutdown() {

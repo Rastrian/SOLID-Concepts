@@ -1,9 +1,8 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import decorator.Pedido;
+import profiles.Pedido;
 
 public class PedidosDao implements Dao<Pedido, Integer>{
 	private static PedidosDao instance = null;
@@ -39,20 +38,13 @@ public class PedidosDao implements Dao<Pedido, Integer>{
 	}
 
     @Override
-	public void remove(Pedido p) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void remove(Pedido p) {}
 
 	@Override
-	public void update(Pedido p) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void update(Pedido p) {}
 
 	@Override
 	public ArrayList<Pedido> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return fila;
 	}
 }

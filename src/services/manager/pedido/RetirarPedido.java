@@ -3,7 +3,7 @@ package services.manager.pedido;
 import java.util.ArrayList;
 
 import dao.PedidosDao;
-import decorator.Pedido;
+import profiles.Pedido;
 
 public class RetirarPedido implements Runnable{
 	private volatile boolean closeThread;

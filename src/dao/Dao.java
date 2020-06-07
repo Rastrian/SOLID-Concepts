@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface Dao < T, K > {
     public T get(K id);

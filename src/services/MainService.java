@@ -1,29 +1,29 @@
-package services.usuario.cliente;
+package services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import services.MainService;
-import services.manager.pedido.CriarPedido;
-import services.manager.pedido.RetirarPedido;
+import dao.PedidosDao;
+import services.usuario.cliente.MenuCliente;
+import services.usuario.administrador.MenuAdministrador;
 
-public class MenuCliente extends MainService{
+public class MainService implements Runnable{
 	private volatile boolean closeThread;
     private static boolean inUse;
-	
-	@Override
+
+    @Override
 	public void run() {
 		while (!closeThread) {
+            this.InitDAO();
             this.start();
-         }
+        }	
 	}
-	
-	public void start() {
-		System.out.println("\nOpções:\n\n0 → Sair.\n1 → Fazer pedido.\n2 → Retirar pedido."
-                + "\n\nInsira a opção desejada:");
-        Integer output = null;
-        while (output == null) {
+
+	private void start() {
+		System.out.println("\nOpções:\n\n0 → Sair\n1 → Entrar como Cliente\n2 → Entrar como Administrador\n\nInsira a opção desejada:");
+		Integer output = null;
+		while (output == null) {
             if (!inUse) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 try {
@@ -33,19 +33,12 @@ public class MenuCliente extends MainService{
                 }
             }
         }
-        Thread t = null;
-        if (output == 0) {
-            shutdown();
-            return;
-        }
-        
-        if (output != null){
+		Thread t = null;
+		if (output == 1) {
             inUse();
-        } 
-        
-        if(output == 1) {
-        	CriarPedido criarPedido = new CriarPedido();
-        	t = new Thread(criarPedido);
+            System.out.println("Bem vindo, ao menu de Cliente.");
+            MenuCliente menuCliente = new MenuCliente();
+            t = new Thread(menuCliente);
             t.start();
             try {
                 t.join();
@@ -54,10 +47,11 @@ public class MenuCliente extends MainService{
             }
             inUse();
         }
-        
-        if(output == 2) {
-        	CriarPedido criarPedido = new CriarPedido();
-        	t = new Thread(criarPedido);
+		if (output == 2) {
+            inUse();
+            System.out.println("Bem vindo, ao menu de Administrador.");
+            MenuAdministrador menuCliente = new MenuAdministrador();
+            t = new Thread(menuCliente);
             t.start();
             try {
                 t.join();
@@ -67,6 +61,14 @@ public class MenuCliente extends MainService{
             inUse();
         }
 	}
+
+	private void InitDAO() {
+        PedidosDao.getInstance();
+	}
+	
+	public void shutdown() {
+        closeThread = true;
+    }
 	
 	public void inUse(){
         if (inUse){
@@ -74,10 +76,6 @@ public class MenuCliente extends MainService{
             return;
         }
         inUse = true;
-    }
-	
-	public void shutdown() {
-        closeThread = true;
     }
 	
 }

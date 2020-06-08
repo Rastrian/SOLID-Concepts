@@ -37,20 +37,20 @@ public class ListarPedidos implements Runnable{
         if (userId == null){
             pedidos = repository.getAll();
             pedidos.forEach(p -> {
-                System.out.println("ID: "+ p.getId() +
-                "- Descrição: " + p.getDesc() +
-                "- Preço: "+ p.getPreco() +
-                "- "+ utilsPedido.getPedidoState(p.getState()));
+                System.out.println("\nID: "+ p.getId() + "\n" +
+                "Descrição: " + p.getDesc() + "\n" +
+                "Preço: "+ p.getPreco() + "\n" +
+                "Estado: "+ utilsPedido.getPedidoState(p.getState()));
             });
             shutdown();
             return;
         }
         pedidos = utils.getPedidos();
         pedidos.forEach(p -> {
-            System.out.println("ID: "+ p.getId() +
-            "- Descrição: " + p.getDesc() +
-            "- Preço: "+ p.getPreco() +
-            "- "+ utilsPedido.getPedidoState(p.getState()));
+            System.out.println("\nID: "+ p.getId() + "\n" +
+            "Descrição: " + p.getDesc() + "\n" +
+            "Preço: "+ p.getPreco() + "\n" +
+            "Estado: "+ utilsPedido.getPedidoState(p.getState()));
         });
         shutdown();
     }

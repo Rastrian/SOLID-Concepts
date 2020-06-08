@@ -6,13 +6,15 @@ import java.io.InputStreamReader;
 
 import dao.PedidosDao;
 import profiles.Pedido;
+import services.utils.ObserverUtils;
 import services.utils.UsuarioUtils;
 
 public class RetirarPedido implements Runnable{
 	private volatile boolean closeThread;
     
     private static PedidosDao repository;
-	private static UsuarioUtils utils;
+    private static UsuarioUtils utils;
+	private static ObserverUtils utilsOB;
 	
 	@Override
 	public void run() {
@@ -20,6 +22,7 @@ public class RetirarPedido implements Runnable{
             try {
                 repository = PedidosDao.getInstance();
                 utils = UsuarioUtils.getInstance();
+                utilsOB = ObserverUtils.getInstance();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -59,7 +62,7 @@ public class RetirarPedido implements Runnable{
 
         if(pedido != null && pedido.getState() == 2) {
             repository.remove(pedido);
-            pedido.setState(3);
+            utilsOB.setState(3, pedido);
             repository.add(pedido);
         }else {
         	System.out.println("Apenas é possível retirar pedido PRONTO");

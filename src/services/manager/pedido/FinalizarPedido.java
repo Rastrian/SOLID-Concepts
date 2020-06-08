@@ -6,17 +6,19 @@ import java.io.InputStreamReader;
 
 import dao.PedidosDao;
 import profiles.Pedido;
+import services.utils.ObserverUtils;
 
 public class FinalizarPedido implements Runnable{
 	private volatile boolean closeThread;
     
     private static PedidosDao repository;
-	
+	private static ObserverUtils utilsOB;
 	
 	@Override
 	public void run() {
 		while (!closeThread) {
             try {
+                utilsOB = ObserverUtils.getInstance();
 				repository = PedidosDao.getInstance();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -49,7 +51,7 @@ public class FinalizarPedido implements Runnable{
         Pedido pedido = repository.get(output); 
         if(pedido != null && pedido.getState() == 1) {
             repository.remove(pedido);
-            pedido.setState(2);
+            utilsOB.setState(2, pedido);
             repository.add(pedido);
         }else {
         	System.out.println("Apenas é possível finalizar um pedido PREPARANDO");

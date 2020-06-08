@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import dao.PedidosDao;
 
 import profiles.Pedido;
+import services.utils.ObserverUtils;
 import services.utils.PedidosUtils;
 import services.utils.UsuarioUtils;
 
@@ -16,8 +17,10 @@ public class CriarPedido implements Runnable{
 	
 	private static PedidosDao repository;
 	private static ArrayList<Pedido> fila;
+
 	private static PedidosUtils utils;
 	private static UsuarioUtils utilsUsuario;
+	private static ObserverUtils utilsOB;
 	
 	private Pedido pedido;
 
@@ -26,6 +29,7 @@ public class CriarPedido implements Runnable{
 		while (!closeThread) {
 			try {
 				utilsUsuario = UsuarioUtils.getInstance();
+				utilsOB = ObserverUtils.getInstance();
 				repository = PedidosDao.getInstance();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -38,6 +42,7 @@ public class CriarPedido implements Runnable{
 	
 	public void start() {
 		Integer output = null;
+		
         System.out.println("Opções de tamanho: \n\n0 → Pequeno.\n1 → Medio.\n2 → Grande \n\nSelecione o tamanho do Ramen: ");
         while(output == null || (output != 0 && output != 1 && output != 2)) {
         	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -92,15 +97,16 @@ public class CriarPedido implements Runnable{
 		
 		if(fila.isEmpty()) {
 			pedido.setId(1);
-			pedido.setState(0);
 		}else {
 			Pedido lastInserted = fila.get(fila.size()-1);
 			pedido.setId(lastInserted.getId()+1);
 		}
 		
+		utilsOB.setState(0, pedido);
+
 		repository.add(pedido);
 		utilsUsuario.addPedido(pedido);
-		System.out.println("\nInformações sobre o curso:\nID: " + pedido.getId() + "\nDescricao: " + pedido.getDesc()+ "\nValor: R$" + pedido.getPreco());
+		System.out.println("\nInformações sobre o pedido:\nID: " + pedido.getId() + "\nDescricao: " + pedido.getDesc()+ "\nValor: R$" + pedido.getPreco());
         shutdown();
 	}
 	

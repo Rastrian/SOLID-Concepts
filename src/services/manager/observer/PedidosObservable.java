@@ -1,10 +1,12 @@
-package profiles.tamanho;
+package services.manager.observer;
+
+import java.util.Observable;
 
 import profiles.Pedido;
 
-public class PedidoGrande implements Pedido{
-	int id;
-	int state;
+public class PedidosObservable extends Observable implements Pedido {
+    int id;
+    int state;
 
 	@Override
 	public String getDesc() {
@@ -33,7 +35,8 @@ public class PedidoGrande implements Pedido{
 
 	@Override
 	public void setState(int id) {
-		this.state = id;		
-	}
-
+        this.state = id;
+        notifyObservers("changeState");
+    }
+    
 }

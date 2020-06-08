@@ -6,14 +6,14 @@ import profiles.Pedido;
 
 public class UsuarioUtils {
     private static Integer lastUserId;
-    private static ArrayList<Pedido> pedidos; 
+    private static ArrayList<Pedido> pedidos;
     private static UsuarioUtils instance = null;
 
     private UsuarioUtils() {
         pedidos = new ArrayList<Pedido>();
         generateUserId();
     }
-    
+
     public static UsuarioUtils getInstance() {
         if (instance == null) {
             instance = new UsuarioUtils();
@@ -21,24 +21,31 @@ public class UsuarioUtils {
         return instance;
     }
 
-    public void addPedido(Pedido pedido){
+    public void addPedido(Pedido pedido) {
         pedidos.add(pedido);
     }
 
     private void generateUserId() {
         if (lastUserId == null)
-            lastUserId = (int)(Math.random() * (Integer.MAX_VALUE + 1));
+            lastUserId = (int) (Math.random() * (Integer.MAX_VALUE + 1));
     }
 
-    public void setUserId(Object i){
+    public void setUserId(Object i) {
         lastUserId = (Integer) i;
     }
 
-    public Integer getUserId(){
+    public Integer getUserId() {
         return lastUserId;
     }
 
-    public ArrayList<Pedido> getPedidos(){
+    public ArrayList<Pedido> getPedidos() {
         return pedidos;
+    }
+
+    public static void clearConsole() {
+        for(int i = 0; i < 1000; i++)
+        {
+            System.out.println("\b");
+        }
     }
 }

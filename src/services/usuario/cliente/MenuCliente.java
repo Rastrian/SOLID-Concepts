@@ -45,7 +45,8 @@ public class MenuCliente extends MainService{
         
         if (output != null){
             inUse();
-        } 
+            UsuarioUtils.clearConsole();
+        }
         
         if(output == 1) {
         	CriarPedido criarPedido = new CriarPedido();

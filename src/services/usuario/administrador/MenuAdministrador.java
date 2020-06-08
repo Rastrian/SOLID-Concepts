@@ -48,6 +48,7 @@ public class MenuAdministrador extends MainService{
         
         if (output != null){
             inUse();
+            UsuarioUtils.clearConsole();
         }
         
         if(output == 1) {

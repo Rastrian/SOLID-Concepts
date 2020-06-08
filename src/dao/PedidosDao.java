@@ -86,8 +86,6 @@ public class PedidosDao implements Dao<Pedido, Integer> {
 			outputFile.flush();
 			readFromFile();
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar Pedidos no disco!");
-			e.printStackTrace();
 		}
 	}
 
@@ -100,8 +98,6 @@ public class PedidosDao implements Dao<Pedido, Integer> {
 				fila.add(pedido);
 			}
 		} catch (Exception e) {
-			System.out.println("ERRO ao gravar Pedidos no disco!");
-			e.printStackTrace();
 		}
 		return fila;
 	}

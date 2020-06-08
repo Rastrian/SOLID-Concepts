@@ -1,19 +1,19 @@
-package profiles.tamanho;
+package profiles;
 
 import profiles.Pedido;
 
-public class PedidoGrande implements Pedido{
+public class Pedidos implements Pedido{
 	int id;
 	int state;
 
 	@Override
 	public String getDesc() {
-		return "Ramen Grande";
+		return "";
 	}
 
 	@Override
 	public double getPreco() {
-		return 15.90;
+		return 0.00;
 	}
 	
 	@Override

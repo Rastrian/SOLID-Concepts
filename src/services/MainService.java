@@ -33,7 +33,13 @@ public class MainService implements Runnable{
                 }
             }
         }
-		Thread t = null;
+        Thread t = null;
+        
+        if (output == 0) {
+            shutdown();
+            return;
+        }
+
 		if (output == 1) {
             inUse();
             System.out.println("Bem vindo, ao menu de Cliente.");
